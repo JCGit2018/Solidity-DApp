@@ -78,7 +78,7 @@ contract RegulatorI {
             address owner,
             uint deposit)
         public
-        returns(TollBoothOperatorI newOperator);
+        returns(address newOperator);
 
     /**
      * Event emitted when a TollBoothOperator has been removed from the list of approved operators.

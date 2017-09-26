@@ -33,7 +33,7 @@ contract Pausable is Owned, PausableI {
         return _isPaused;
     }
 
-    modifier whenPause {
+    modifier whenPaused {
         require(!_isPaused);
         _;
     }

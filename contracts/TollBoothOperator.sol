@@ -10,11 +10,11 @@ import "./interfaces/RegulatedI.sol";
 
 contract TollBoothOperator is Pausable, RoutePriceHolder, MultiplierHolder, DepositHolder, RegulatedI, TollBoothOperatorI {
 
-    address private regulator;
+    address regulatorVar;
 
-    function TollBoothOperator(bool paused, address regulator, uint deposit) Pausable(paused) DepositHolder(deposit) public {
-        setOwner(regulator);
-        setRegulator(msg.sender);
+    function TollBoothOperator(bool paused, address _regulator, uint deposit) Pausable(paused) DepositHolder(deposit) public {
+        // setOwner(_regulator);
+        regulatorVar = _regulator;
     }
     
     function hashSecret(bytes32 secret) constant  public returns(bytes32 hashed) {
@@ -116,10 +116,11 @@ contract TollBoothOperator is Pausable, RoutePriceHolder, MultiplierHolder, Depo
     }
 
     function setRegulator(address newRegulator)    public returns(bool success) {
-        regulator = newRegulator;
+        regulatorVar = newRegulator;
+        return true;
     }
 
     function getRegulator() constant public returns(RegulatorI regulator) {
-        return regulator;
+        return RegulatorI(regulatorVar);
     }
 }

@@ -40,7 +40,8 @@ contract Regulator is Owned, RegulatorI {
      */
     function createNewOperator(address owner, uint deposit) public fromOwner returns(address newOperator) {
         require(getOwner() != owner);
-        TollBoothOperator t = new TollBoothOperator(true, owner, deposit);
+        TollBoothOperator t = new TollBoothOperator(true, this, deposit);
+        t.setOwner(owner);
         tollBoothOperators[t] = t;
         LogTollBoothOperatorCreated(msg.sender, t, owner, deposit);
         return t;
@@ -65,7 +66,7 @@ contract Regulator is Owned, RegulatorI {
      * @return Whether the TollBoothOperator is indeed approved.
      */
     function isOperator(address operator) constant public returns(bool indeed) {
-        if ( operator == 0x0){
+        if ( operator == 0x0) {
             return false;
         }
         return tollBoothOperators[operator] == operator;

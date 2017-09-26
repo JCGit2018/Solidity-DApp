@@ -13,7 +13,7 @@ contract TestOwnedB {
         if (index == 0) {
             return new RoutePriceHolderMock();
         } else if (index == 1) {
-            return new TollBoothOperator(true, 1, this);
+            return new TollBoothOperator(true, this, 1);
         } else {
             revert();
         }
